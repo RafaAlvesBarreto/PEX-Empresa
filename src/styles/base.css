@@ -114,9 +114,7 @@ nav {
   transition: right 0.35s var(--ease);
   z-index: 998;
 }
-nav.active { right: 0;
-  z-index: 999;
-}
+nav.active { right: 0; z-index: 999; }
 nav ul { list-style: none; padding: 20px 0; }
 nav ul li { border-bottom: 1px solid rgba(255,255,255,0.07); }
 nav ul li a {
@@ -139,8 +137,8 @@ main {
   width: 100%;
   padding-top: calc(var(--header-h) + 24px);
   padding-bottom: 40px;
-  padding-left: 4%;  /* Fluido para se adaptar a qualquer tamanho de monitor */
-  padding-right: 4%; /* Fluido para se adaptar a qualquer tamanho de monitor */
+  padding-left: 4%;
+  padding-right: 4%;
 }
 
 /* ---------- CARD / BOX ---------- */
@@ -191,11 +189,11 @@ button:hover {
 }
 
 /* ---------- SEÇÃO TÍTULO ---------- */
-.logo, .section-title {
+.logo, .section-title, .section-header {
   text-align: center;
   padding: 14px 0 2px;
 }
-.logo h4, .section-title h4 {
+.logo h4, .section-title h4, .section-header h4 {
   font-size: 14px;
   color: var(--blue);
   font-weight: 600;
@@ -204,18 +202,64 @@ button:hover {
 }
 
 /* ---------- VÍDEO CARROSSEL ---------- */
+/*
+  FIX: .video-box-container agora usa display:flex + flex-direction:column
+  como base. Isso garante que o .video-track possa usar flex:1 e preencher
+  a altura em qualquer contexto (sticky ou não-sticky).
+  O VideoCarousel.jsx também seta esses estilos inline, sendo redundante
+  mas garantindo compatibilidade com usos diretos via CSS.
+*/
 .video-box-container {
   position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
-.video-track { display: flex; transition: transform 0.5s var(--ease); }
-.video-item  {min-width: 80%;}
-.video-item video { width: 80%; border-radius: var(--r-sm); }
+
+.video-track {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  transition: transform 0.5s var(--ease);
+}
+
+/*
+  FIX: aspect-ratio removido daqui.
+  O aspect-ratio 16/9 foi a causa do conflito de centralização:
+  quando o item está dentro de um container full-height, o aspect-ratio
+  sobrescreve height:100% e impede o preenchimento correto.
+  O fallback de proporção agora é responsabilidade do contexto pai
+  (ex: Departamentos.css usa aspect-ratio no container para mobile).
+*/
+.video-item {
+  min-width: 100%;
+  flex-shrink: 0;
+  height: 100%;
+  background: #000;
+}
+
+.video-item video {
+  width: 100%;
+  height: 100%;
+  display: block;
+  border-radius: var(--r-sm);
+  object-fit: contain; /* preserva proporção, centraliza com letterbox */
+}
+
+/* Fallback para uso standalone (sem container full-height):
+   usa aspect-ratio no container para definir o tamanho do bloco */
+.video-box-container:not([style*="height"]) .video-item {
+  aspect-ratio: 16 / 9;
+  height: auto;
+}
+
 .video-controls {
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 14px;
   padding: 10px;
+  flex-shrink: 0;
 }
 .btn-carousel, .btn-floating-sound {
   width: 42px; height: 42px;
@@ -238,11 +282,6 @@ button:hover {
   color: var(--black);
   transform: scale(1.04);
   box-shadow: 0 5px 18px rgba(238,177,17,0.35);
-}
-.btn-floating-sound {
-  position: absolute;
-  top: 12px; right: 12px;
-  z-index: 10;
 }
 
 /* ---------- FOOTER ---------- */

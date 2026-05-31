@@ -23,6 +23,8 @@
 
   padding-top: calc(var(--header-h) + 24px);
   padding-bottom: var(--linha-inner-bottom);
+  padding-left: 4%;
+  padding-right: 4%;
   overflow: hidden;
 }
 
@@ -33,20 +35,22 @@
   height: 100%;
 
   display: flex;
-  align-items: center;
+  align-items: stretch;
   justify-content: center;
   overflow: hidden;
 }
 
+/* ─── FIX: o .video-box-container agora recebe os estilos de flex column
+   diretamente via JS (VideoCarousel.jsx corrigido), mas mantemos aqui
+   como reforço para garantir 100% de largura e altura ─────────────── */
 .dept-video-panel .video-box-container {
-  position: relative;
-  width: 100%;
-  height: 100%;
+  width: 100% !important;
+  height: 100% !important;
   max-width: 100%;
   max-height: 100%;
 
-  display: flex;
-  flex-direction: column;
+  display: flex !important;
+  flex-direction: column !important;
 
   border-radius: var(--r-md);
   border: 1px solid var(--glass-border);
@@ -57,52 +61,52 @@
   -webkit-backdrop-filter: var(--blur);
 }
 
+/* O track NÃO pode ter overflow:hidden: cada .video-item tem min-width:100%,
+   logo itens 1..N ficam em translateX 100%..N00% relativo ao track. Recortá-los
+   aqui faria o carrossel mostrar sempre só o primeiro frame. O recorte fica no
+   .video-box-container (a viewport visual). */
 .dept-video-panel .video-track {
-  flex: 1 1 auto;
-  min-height: 0;
-  display: flex;
-  overflow: hidden;
+  flex: 1 1 auto !important;
+  min-height: 0 !important;
+  display: flex !important;
+  overflow: visible;
   transition: transform 0.5s var(--ease);
 }
 
+/* ─── FIX PRINCIPAL: base.css aplica aspect-ratio:16/9 em .video-item
+   o que conflita com height:100% e impede o preenchimento da altura.
+   Sobrescrevemos com aspect-ratio:unset para liberar o height. ─────── */
 .dept-video-panel .video-item {
   min-width: 100%;
-  height: 100%;
+  height: 100% !important;
   flex-shrink: 0;
+  aspect-ratio: unset !important; /* FIX: remove 16/9 do base.css */
+  background: #000;
 }
 
+/* ─── Vídeo centralizado e proporcional dentro do item ──────── */
 .dept-video-panel .video-item video {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain; /* mantém proporção original do vídeo */
   display: block;
 }
 
-/* Botão de som */
-.dept-video-panel .btn-floating-sound {
-  position: absolute;
-  top: 12px;
-  right: 12px;
-  z-index: 10;
-  width: auto;
-  height: auto;
-  border-radius: var(--r-lg);
-  border: 1px solid var(--yellow-50);
-  background: var(--yellow-25);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  color: var(--blue);
-  font-size: 13px;
-  padding: 6px 12px;
-  box-shadow: 0 3px 12px rgba(0,0,0,0.10),
-  inset 0 0 8px rgba(238,177,17,0.15);
-  transition: background 0.2s, transform 0.2s, box-shadow 0.2s, color 0.2s;
+/* Controles prev/next dentro do carrossel */
+.dept-video-panel .video-controls {
+  flex: 0 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  background: rgba(255, 255, 255, 0.18);
+  backdrop-filter: var(--blur);
+  -webkit-backdrop-filter: var(--blur);
 }
-.dept-video-panel .btn-floating-sound:hover {
-  background: var(--yellow);
-  color: var(--black);
-  transform: scale(1.04);
-  box-shadow: 0 5px 18px rgba(238,177,17,0.35);
+.dept-video-panel .btn-carousel,
+.dept-video-panel .btn-floating-sound {
+  flex: 0 0 auto;
 }
 
 /* ── COLUNA DE CARDS (direita) — rola internamente ─────────── */
@@ -113,21 +117,6 @@
   overflow: hidden;
   display: flex;
   flex-direction: column;
-}
-
-.section-header {
-  flex: 0 0 auto;
-  margin-bottom: 14px;
-}
-
-.section-header h4 {
-  font-size: 13px;
-  color: var(--blue);
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  border-left: 3px solid var(--yellow);
-  padding-left: 10px;
 }
 
 /* Grid com scroll interno */
@@ -162,9 +151,9 @@
   opacity: 0;
   transform: translateY(22px);
   transition:
-          opacity   0.30s var(--ease),
-          transform 0.30s var(--ease),
-          box-shadow 0.22s ease,
+          opacity      0.30s var(--ease),
+          transform    0.30s var(--ease),
+          box-shadow   0.22s ease,
           border-color 0.22s ease;
 }
 
@@ -237,10 +226,16 @@
   }
 
   .dept-video-panel .video-box-container {
-    width: 100%;
-    height: auto;
+    width: 100% !important;
+    height: auto !important;
     max-height: none;
-    aspect-ratio: 16 / 9;
+    aspect-ratio: 16 / 9; /* mobile: usa aspect-ratio fixo como bloco */
+  }
+
+  /* No mobile o item volta a ter aspect-ratio via container, não no item */
+  .dept-video-panel .video-item {
+    aspect-ratio: unset !important;
+    height: 100% !important;
   }
 
   .dept-cards-section {
