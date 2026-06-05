@@ -10,7 +10,7 @@ export default function Footer() {
           </div>
         ))}
       </div>
-      <p className="copyright">© 2026 Treinamento On The Job — Grupo Whirlpool</p>
+      <p className="copyright">© 2026 Workstation Training — Grupo Whirlpool</p>
     </footer>
   )
 }

@@ -14,7 +14,7 @@ export default function Home() {
 
   return (
     <>
-      <Header title="Seja bem-vindo ao Espaço do Colaborador" />
+      <Header title="Company Hub" />
 
       <main className="home-page-main">
         <section className="home-main">
