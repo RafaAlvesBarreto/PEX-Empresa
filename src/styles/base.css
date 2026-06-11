@@ -202,13 +202,7 @@ button:hover {
 }
 
 /* ---------- VÍDEO CARROSSEL ---------- */
-/*
-  FIX: .video-box-container agora usa display:flex + flex-direction:column
-  como base. Isso garante que o .video-track possa usar flex:1 e preencher
-  a altura em qualquer contexto (sticky ou não-sticky).
-  O VideoCarousel.jsx também seta esses estilos inline, sendo redundante
-  mas garantindo compatibilidade com usos diretos via CSS.
-*/
+
 .video-box-container {
   position: relative;
   overflow: hidden;
@@ -223,14 +217,6 @@ button:hover {
   transition: transform 0.5s var(--ease);
 }
 
-/*
-  FIX: aspect-ratio removido daqui.
-  O aspect-ratio 16/9 foi a causa do conflito de centralização:
-  quando o item está dentro de um container full-height, o aspect-ratio
-  sobrescreve height:100% e impede o preenchimento correto.
-  O fallback de proporção agora é responsabilidade do contexto pai
-  (ex: Departamentos.css usa aspect-ratio no container para mobile).
-*/
 .video-item {
   min-width: 100%;
   flex-shrink: 0;
@@ -246,8 +232,6 @@ button:hover {
   object-fit: contain; /* preserva proporção, centraliza com letterbox */
 }
 
-/* Fallback para uso standalone (sem container full-height):
-   usa aspect-ratio no container para definir o tamanho do bloco */
 .video-box-container:not([style*="height"]) .video-item {
   aspect-ratio: 16 / 9;
   height: auto;

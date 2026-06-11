@@ -61,10 +61,6 @@
   -webkit-backdrop-filter: var(--blur);
 }
 
-/* O track NÃO pode ter overflow:hidden: cada .video-item tem min-width:100%,
-   logo itens 1..N ficam em translateX 100%..N00% relativo ao track. Recortá-los
-   aqui faria o carrossel mostrar sempre só o primeiro frame. O recorte fica no
-   .video-box-container (a viewport visual). */
 .dept-video-panel .video-track {
   flex: 1 1 auto !important;
   min-height: 0 !important;
@@ -73,14 +69,11 @@
   transition: transform 0.5s var(--ease);
 }
 
-/* ─── FIX PRINCIPAL: base.css aplica aspect-ratio:16/9 em .video-item
-   o que conflita com height:100% e impede o preenchimento da altura.
-   Sobrescrevemos com aspect-ratio:unset para liberar o height. ─────── */
 .dept-video-panel .video-item {
   min-width: 100%;
   height: 100% !important;
   flex-shrink: 0;
-  aspect-ratio: unset !important; /* FIX: remove 16/9 do base.css */
+  aspect-ratio: unset !important;
   background: #000;
 }
 
@@ -88,7 +81,7 @@
 .dept-video-panel .video-item video {
   width: 100%;
   height: 100%;
-  object-fit: contain; /* mantém proporção original do vídeo */
+  object-fit: contain;
   display: block;
 }
 

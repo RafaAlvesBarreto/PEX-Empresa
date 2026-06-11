@@ -13,7 +13,6 @@
 .home-page-main {
   padding-top: 0 !important;
   padding-bottom: 0 !important;
-
   position: fixed;
   top: var(--header-h);
   left: 0;

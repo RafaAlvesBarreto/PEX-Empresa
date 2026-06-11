@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diagrama de Estruturas — whirlpoolPex</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Inter:wght@300;400;600;700&display=swap');
+        *{box-sizing:border-box;margin:0;padding:0}
+        body{background:#0d1117;font-family:'Inter',sans-serif;color:#e6edf3;min-height:100vh}
+        .page-header{padding:32px 60px 20px;border-bottom:1px solid #21262d;display:flex;align-items:flex-end;justify-content:space-between}
+        .page-header h1{font-size:21px;font-weight:700;color:#f0f6fc;letter-spacing:-.3px}
+        .page-header p{font-size:12px;color:#8b949e;margin-top:3px;font-family:'JetBrains Mono',monospace}
+        .badge{font-size:10px;background:#21262d;border:1px solid #30363d;padding:2px 8px;border-radius:20px;font-family:'JetBrains Mono',monospace;color:#79c0ff}
+        .rationale{background:#161b22;border-left:4px solid #58a6ff;padding:18px 28px;margin:0}
+        .rationale h3{font-size:13px;font-weight:700;color:#58a6ff;margin-bottom:10px;letter-spacing:.3px}
+        .rationale p{font-size:12px;color:#8b949e;line-height:1.7;margin-bottom:8px}
+        .rationale p:last-child{margin-bottom:0}
+        .rationale strong{color:#e6edf3}
+        .legend{display:flex;flex-wrap:wrap;gap:18px;padding:12px 24px;background:#0d1117;border-bottom:1px solid #21262d}
+        .li{display:flex;align-items:center;gap:7px;font-size:11px;color:#8b949e}
+        .diagram-container{overflow:auto;padding:30px 20px 60px;cursor:grab}
+        .diagram-container:active{cursor:grabbing}
+        svg text{user-select:none;-webkit-user-select:none}
+    </style>
+</head>
+<body>
+<div class="page-header">
+    <div>
+        <h1>Diagrama de Estruturas — whirlpoolPex</h1>
+        <p>Workspace Training · Whirlpool · Fábrica II — Joinville/SC</p>
+    </div>
+    <span class="badge">«Diagrama de Componentes UML 2.5»</span>
+</div>
+
+<div class="rationale">
+    <h3>▸ Por que Diagrama de Componentes UML?</h3>
+    <p>O <strong>Diagrama de Componentes</strong> (UML 2.5, estrutural) é o tipo mais adequado para documentar a arquitetura de um projeto front-end baseado em módulos porque ele modela explicitamente as <strong>unidades de código deployáveis</strong> (componentes, pacotes, arquivos) e suas <strong>dependências de importação</strong>, sem entrar no detalhe de atributos e métodos (que seria papel do Diagrama de Classes).</p>
+    <p>Para o whirlpoolPex, a escolha se justifica por três razões: <strong>(1)</strong> o projeto é organizado em módulos bem definidos (components/, hooks/, data/, pages/, styles/, utils/) que mapeiam diretamente para «package» UML; <strong>(2)</strong> as relações entre eles são de <em>composição</em> (pasta contém arquivos) e <em>dependência</em> (arquivo importa outro), exatamente os relacionamentos que o diagrama de componentes representa com setas sólidas e tracejadas; <strong>(3)</strong> a hierarquia de páginas (departamentos → linha-sp2 → linha1 → pc) é uma cadeia de contenção de pacotes — estrutura natural para este tipo de diagrama.</p>
+    <p>Alternativas consideradas: o <em>Diagrama de Pacotes</em> seria mais simples mas perderia a notação «component» e os estereótipos por tipo de arquivo; o <em>Diagrama de Classes</em> seria inadequado pois os arquivos são módulos, não classes com atributos/operações.</p>
+</div>
+
+<div class="legend">
+    <div class="li"><svg width="36" height="14"><line x1="0" y1="7" x2="27" y2="7" stroke="#58a6ff" stroke-width="1.5"/><polygon points="27,3 36,7 27,11" fill="#58a6ff"/></svg>Composição / Contém</div>
+    <div class="li"><svg width="36" height="14"><line x1="0" y1="7" x2="27" y2="7" stroke="#8b949e" stroke-width="1.3" stroke-dasharray="4,3"/><polygon points="27,3 36,7 27,11" fill="none" stroke="#8b949e" stroke-width="1.5"/></svg>«use» Dependência</div>
+    <div class="li"><svg width="14" height="14"><rect x="0" y="0" width="14" height="14" rx="2" fill="none" stroke="#3fb950" stroke-width="1.5"/></svg>«package»</div>
+    <div class="li"><svg width="14" height="14"><rect x="0" y="0" width="14" height="14" rx="2" fill="none" stroke="#d2a8ff" stroke-width="1.5"/><rect x="3" y="0" width="8" height="4" rx="1" fill="#d2a8ff"/></svg>«component» Arquivo</div>
+    <div class="li"><svg width="14" height="14"><rect x="0" y="0" width="14" height="14" rx="2" fill="none" stroke="#ffa657" stroke-width="1.5"/><rect x="3" y="0" width="8" height="4" rx="1" fill="#ffa657"/></svg>«component» Página</div>
+    <div class="li"><svg width="14" height="14"><rect x="0" y="0" width="14" height="14" rx="2" fill="none" stroke="#3fb950" stroke-width="1.5"/><rect x="3" y="0" width="8" height="4" rx="1" fill="#3fb950"/></svg>«folder» Estático</div>
+</div>
+
+<div class="diagram-container">
+    <svg id="uml" width="1700" height="1900" viewBox="0 0 1700 1900"
+         xmlns="http://www.w3.org/2000/svg" font-family="'Inter',sans-serif">
+        <defs>
+            <marker id="as" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto"><polygon points="0 0,9 3.5,0 7" fill="#58a6ff"/></marker>
+            <marker id="ao" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto"><polyline points="0 0,9 3.5,0 7" fill="none" stroke="#8b949e" stroke-width="1.5"/></marker>
+            <marker id="ag" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto"><polygon points="0 0,9 3.5,0 7" fill="#3fb950"/></marker>
+            <marker id="ao2" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto"><polygon points="0 0,9 3.5,0 7" fill="#ffa657"/></marker>
+            <marker id="ae3" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto"><polygon points="0 0,9 3.5,0 7" fill="#e3b341"/></marker>
+            <filter id="sh"><feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#000" flood-opacity="0.5"/></filter>
+            <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+                <path d="M40 0L0 0 0 40" fill="none" stroke="#58a6ff" stroke-width="0.3" opacity="0.1"/>
+            </pattern>
+        </defs>
+        <rect width="1700" height="1900" fill="#0d1117"/>
+        <rect width="1700" height="1900" fill="url(#grid)"/>
+
+        <!-- ══ ROOT ══ -->
+        <rect x="600" y="28" width="280" height="72" rx="4" fill="#1c2128" stroke="#58a6ff" stroke-width="2.5" filter="url(#sh)"/>
+        <rect x="600" y="28" width="100" height="20" rx="2" fill="#58a6ff"/>
+        <text x="610" y="42" font-size="10" fill="#0d1117" font-weight="700">«package»</text>
+        <text x="740" y="62" font-size="16" fill="#f0f6fc" font-weight="700" text-anchor="middle">whirlpoolPex</text>
+        <text x="740" y="78" font-size="10" fill="#8b949e" text-anchor="middle">Sistema On The Job — Whirlpool</text>
+        <text x="740" y="92" font-size="9" fill="#58a6ff" text-anchor="middle" font-style="italic">Vite 5 · React 18 · React Router DOM v6</text>
+
+        <!-- root → public, root → src -->
+        <line x1="740" y1="100" x2="300" y2="188" stroke="#58a6ff" stroke-width="1.8" marker-end="url(#as)"/>
+        <line x1="740" y1="100" x2="1150" y2="188" stroke="#58a6ff" stroke-width="1.8" marker-end="url(#as)"/>
+
+        <!-- ══ PUBLIC ══ -->
+        <rect x="80" y="188" width="440" height="50" rx="4" fill="#161b22" stroke="#3fb950" stroke-width="2"/>
+        <rect x="80" y="188" width="76" height="18" rx="2" fill="#3fb950"/>
+        <text x="88" y="201" font-size="9" fill="#0d1117" font-weight="700">«package»</text>
+        <text x="300" y="210" font-size="13" fill="#f0f6fc" font-weight="600" text-anchor="middle">public /</text>
+        <text x="300" y="228" font-size="10" fill="#8b949e" text-anchor="middle">Ativos estáticos servidos sem processamento pelo Vite</text>
+
+        <!-- public → folders -->
+        <line x1="300" y1="238" x2="300" y2="272" stroke="#3fb950" stroke-width="1.5" marker-end="url(#ag)"/>
+
+        <!-- public folders row 1 -->
+        <!-- DDS -->
+        <rect x="30" y="272" width="80" height="52" rx="3" fill="#161b22" stroke="#3fb950" stroke-width="1.3"/>
+        <rect x="30" y="272" width="46" height="13" rx="2" fill="#3fb950"/>
+        <text x="34" y="282" font-size="7.5" fill="#0d1117" font-weight="600">«folder»</text>
+        <text x="70" y="304" font-size="10" fill="#f0f6fc" text-anchor="middle">DDS/</text>
+        <text x="70" y="317" font-size="8" fill="#8b949e" text-anchor="middle">PDFs DDS</text>
+
+        <!-- FII -->
+        <rect x="120" y="272" width="72" height="52" rx="3" fill="#161b22" stroke="#3fb950" stroke-width="1.3"/>
+        <rect x="120" y="272" width="40" height="13" rx="2" fill="#3fb950"/>
+        <text x="124" y="282" font-size="7.5" fill="#0d1117" font-weight="600">«folder»</text>
+        <text x="156" y="304" font-size="10" fill="#f0f6fc" text-anchor="middle">FII/</text>
+        <text x="156" y="317" font-size="8" fill="#8b949e" text-anchor="middle">Docs FII</text>
+
+        <!-- icons -->
+        <rect x="202" y="272" width="76" height="52" rx="3" fill="#161b22" stroke="#3fb950" stroke-width="1.3"/>
+        <rect x="202" y="272" width="40" height="13" rx="2" fill="#3fb950"/>
+        <text x="206" y="282" font-size="7.5" fill="#0d1117" font-weight="600">«folder»</text>
+        <text x="240" y="304" font-size="10" fill="#f0f6fc" text-anchor="middle">icons/</text>
+        <text x="240" y="317" font-size="8" fill="#8b949e" text-anchor="middle">SVGs</text>
+
+        <!-- img -->
+        <rect x="288" y="272" width="64" height="52" rx="3" fill="#161b22" stroke="#3fb950" stroke-width="1.3"/>
+        <rect x="288" y="272" width="36" height="13" rx="2" fill="#3fb950"/>
+        <text x="292" y="282" font-size="7.5" fill="#0d1117" font-weight="600">«folder»</text>
+        <text x="320" y="304" font-size="10" fill="#f0f6fc" text-anchor="middle">img/</text>
+        <text x="320" y="317" font-size="8" fill="#8b949e" text-anchor="middle">Imagens</text>
+
+        <!-- MidiasProdutos -->
+        <rect x="362" y="272" width="100" height="52" rx="3" fill="#161b22" stroke="#3fb950" stroke-width="1.3"/>
+        <rect x="362" y="272" width="52" height="13" rx="2" fill="#3fb950"/>
+        <text x="366" y="282" font-size="7.5" fill="#0d1117" font-weight="600">«folder»</text>
+        <text x="412" y="300" font-size="9.5" fill="#f0f6fc" text-anchor="middle">Midias</text>
+        <text x="412" y="312" font-size="9.5" fill="#f0f6fc" text-anchor="middle">Produtos/</text>
+        <text x="412" y="322" font-size="8" fill="#8b949e" text-anchor="middle">PDs+vídeos</text>
+
+        <!-- public folders row 2 -->
+        <line x1="300" y1="324" x2="300" y2="352" stroke="#3fb950" stroke-width="1" stroke-dasharray="3,3"/>
+
+        <rect x="80" y="352" width="86" height="52" rx="3" fill="#161b22" stroke="#3fb950" stroke-width="1.3"/>
+        <rect x="80" y="352" width="46" height="13" rx="2" fill="#3fb950"/>
+        <text x="84" y="362" font-size="7.5" fill="#0d1117" font-weight="600">«folder»</text>
+        <text x="123" y="384" font-size="9.5" fill="#f0f6fc" text-anchor="middle">Seguranca/</text>
+        <text x="123" y="396" font-size="8" fill="#8b949e" text-anchor="middle">Docs Seg.</text>
+
+        <rect x="176" y="352" width="76" height="52" rx="3" fill="#161b22" stroke="#3fb950" stroke-width="1.3"/>
+        <rect x="176" y="352" width="40" height="13" rx="2" fill="#3fb950"/>
+        <text x="180" y="362" font-size="7.5" fill="#0d1117" font-weight="600">«folder»</text>
+        <text x="214" y="384" font-size="9.5" fill="#f0f6fc" text-anchor="middle">video/</text>
+        <text x="214" y="396" font-size="8" fill="#8b949e" text-anchor="middle">mp4 gerais</text>
+
+        <rect x="262" y="352" width="86" height="52" rx="3" fill="#161b22" stroke="#3fb950" stroke-width="1.3"/>
+        <rect x="262" y="352" width="46" height="13" rx="2" fill="#3fb950"/>
+        <text x="266" y="362" font-size="7.5" fill="#0d1117" font-weight="600">«folder»</text>
+        <text x="305" y="384" font-size="9.5" fill="#f0f6fc" text-anchor="middle">wallpaper/</text>
+        <text x="305" y="396" font-size="8" fill="#8b949e" text-anchor="middle">Planos fundo</text>
+
+        <!-- ══ SRC ══ -->
+        <rect x="640" y="188" width="1000" height="50" rx="4" fill="#161b22" stroke="#58a6ff" stroke-width="2"/>
+        <rect x="640" y="188" width="65" height="18" rx="2" fill="#58a6ff"/>
+        <text x="648" y="201" font-size="9" fill="#0d1117" font-weight="700">«package»</text>
+        <text x="1140" y="210" font-size="13" fill="#f0f6fc" font-weight="600" text-anchor="middle">src /</text>
+        <text x="1140" y="228" font-size="10" fill="#8b949e" text-anchor="middle">Código-fonte React — processado pelo Vite no build</text>
+
+        <!-- src → subpackages (6 arrows) -->
+        <line x1="730"  y1="238" x2="700"  y2="432" stroke="#58a6ff" stroke-width="1.4" marker-end="url(#as)"/>
+        <line x1="870"  y1="238" x2="870"  y2="432" stroke="#58a6ff" stroke-width="1.4" marker-end="url(#as)"/>
+        <line x1="1010" y1="238" x2="1010" y2="432" stroke="#58a6ff" stroke-width="1.4" marker-end="url(#as)"/>
+        <line x1="1160" y1="238" x2="1220" y2="432" stroke="#58a6ff" stroke-width="1.4" marker-end="url(#as)"/>
+        <line x1="1380" y1="238" x2="1440" y2="432" stroke="#58a6ff" stroke-width="1.4" marker-end="url(#as)"/>
+        <!-- src → App.jsx -->
+        <line x1="1600" y1="238" x2="1620" y2="272" stroke="#58a6ff" stroke-width="1.4" marker-end="url(#as)"/>
+
+        <!-- App.jsx -->
+        <rect x="1564" y="272" width="116" height="44" rx="3" fill="#161b22" stroke="#ffa657" stroke-width="1.5"/>
+        <rect x="1564" y="272" width="60" height="14" rx="2" fill="#ffa657"/>
+        <text x="1568" y="283" font-size="7.5" fill="#0d1117" font-weight="600">«component»</text>
+        <text x="1622" y="300" font-size="9.5" fill="#f0f6fc" text-anchor="middle">App.jsx</text>
+        <text x="1622" y="312" font-size="8" fill="#8b949e" text-anchor="middle">Router raiz</text>
+
+        <!-- main.jsx (below App) -->
+        <line x1="1622" y1="316" x2="1622" y2="340" stroke="#ffa657" stroke-width="1.3" marker-end="url(#ao2)"/>
+        <rect x="1564" y="340" width="116" height="44" rx="3" fill="#161b22" stroke="#ffa657" stroke-width="1.5"/>
+        <rect x="1564" y="340" width="60" height="14" rx="2" fill="#ffa657"/>
+        <text x="1568" y="351" font-size="7.5" fill="#0d1117" font-weight="600">«component»</text>
+        <text x="1622" y="368" font-size="9.5" fill="#f0f6fc" text-anchor="middle">main.jsx</text>
+        <text x="1622" y="380" font-size="8" fill="#8b949e" text-anchor="middle">Entry point</text>
+
+        <!-- ══ SUBPACKAGES ROW ══ -->
+
+        <!-- COMPONENTS -->
+        <rect x="586" y="432" width="228" height="44" rx="4" fill="#161b22" stroke="#d2a8ff" stroke-width="2"/>
+        <rect x="586" y="432" width="72" height="16" rx="2" fill="#d2a8ff"/>
+        <text x="594" y="444" font-size="9" fill="#0d1117" font-weight="700">«package»</text>
+        <text x="700" y="460" font-size="12" fill="#f0f6fc" font-weight="600" text-anchor="middle">components /</text>
+        <text x="700" y="472" font-size="9" fill="#8b949e" text-anchor="middle">UI reutilizável · 10 arquivos</text>
+
+        <!-- DATA -->
+        <rect x="820" y="432" width="200" height="44" rx="4" fill="#161b22" stroke="#ffa657" stroke-width="2"/>
+        <rect x="820" y="432" width="62" height="16" rx="2" fill="#ffa657"/>
+        <text x="828" y="444" font-size="9" fill="#0d1117" font-weight="700">«package»</text>
+        <text x="920" y="460" font-size="12" fill="#f0f6fc" font-weight="600" text-anchor="middle">data /</text>
+        <text x="920" y="472" font-size="9" fill="#8b949e" text-anchor="middle">Constantes estáticas · 9 arquivos</text>
+
+        <!-- HOOKS -->
+        <rect x="926" y="432" width="200" height="44" rx="4" fill="#161b22" stroke="#3fb950" stroke-width="2"/>
+        <rect x="926" y="432" width="58" height="16" rx="2" fill="#3fb950"/>
+        <text x="934" y="444" font-size="9" fill="#0d1117" font-weight="700">«package»</text>
+        <text x="1026" y="460" font-size="12" fill="#f0f6fc" font-weight="600" text-anchor="middle">hooks /</text>
+        <text x="1026" y="472" font-size="9" fill="#8b949e" text-anchor="middle">Custom Hooks · 6 arquivos</text>
+
+        <!-- PAGES -->
+        <rect x="1136" y="432" width="240" height="44" rx="4" fill="#161b22" stroke="#ff7b72" stroke-width="2"/>
+        <rect x="1136" y="432" width="62" height="16" rx="2" fill="#ff7b72"/>
+        <text x="1144" y="444" font-size="9" fill="#0d1117" font-weight="700">«package»</text>
+        <text x="1256" y="460" font-size="12" fill="#f0f6fc" font-weight="600" text-anchor="middle">pages /</text>
+        <text x="1256" y="472" font-size="9" fill="#8b949e" text-anchor="middle">Páginas SPA · hierarquia de rotas</text>
+
+        <!-- STYLES -->
+        <rect x="1386" y="432" width="170" height="44" rx="4" fill="#161b22" stroke="#79c0ff" stroke-width="2"/>
+        <rect x="1386" y="432" width="58" height="16" rx="2" fill="#79c0ff"/>
+        <text x="1394" y="444" font-size="9" fill="#0d1117" font-weight="700">«package»</text>
+        <text x="1471" y="460" font-size="12" fill="#f0f6fc" font-weight="600" text-anchor="middle">styles /</text>
+        <text x="1471" y="472" font-size="9" fill="#8b949e" text-anchor="middle">CSS por módulo · 9 arquivos</text>
+
+        <!-- utils (standalone) -->
+        <rect x="1570" y="432" width="100" height="44" rx="3" fill="#161b22" stroke="#e3b341" stroke-width="1.8"/>
+        <rect x="1570" y="432" width="56" height="16" rx="2" fill="#e3b341"/>
+        <text x="1574" y="444" font-size="9" fill="#0d1117" font-weight="700">«package»</text>
+        <text x="1620" y="460" font-size="10" fill="#f0f6fc" font-weight="600" text-anchor="middle">utils /</text>
+        <text x="1620" y="472" font-size="9" fill="#8b949e" text-anchor="middle">Utilitários</text>
+
+        <!-- ══ COMPONENTS children ══ -->
+        <line x1="700" y1="476" x2="700" y2="514" stroke="#d2a8ff" stroke-width="1.3" marker-end="url(#as)"/>
+
+        <!-- col A (left) -->
+        <rect x="540" y="514" width="148" height="28" rx="3" fill="#161b22" stroke="#d2a8ff" stroke-width="1.2"/>
+        <rect x="540" y="514" width="58" height="11" rx="2" fill="#d2a8ff"/>
+        <text x="544" y="523" font-size="7" fill="#0d1117" font-weight="600">«component»</text>
+        <text x="614" y="535" font-size="9" fill="#f0f6fc" text-anchor="middle">AssinaturaModal.jsx</text>
+
+        <rect x="540" y="550" width="148" height="28" rx="3" fill="#161b22" stroke="#d2a8ff" stroke-width="1.2"/>
+        <rect x="540" y="550" width="58" height="11" rx="2" fill="#d2a8ff"/>
+        <text x="544" y="559" font-size="7" fill="#0d1117" font-weight="600">«component»</text>
+        <text x="614" y="571" font-size="9" fill="#f0f6fc" text-anchor="middle">ConfirmModal.jsx</text>
+
+        <rect x="540" y="586" width="148" height="28" rx="3" fill="#161b22" stroke="#d2a8ff" stroke-width="1.2"/>
+        <rect x="540" y="586" width="58" height="11" rx="2" fill="#d2a8ff"/>
+        <text x="544" y="595" font-size="7" fill="#0d1117" font-weight="600">«component»</text>
+        <text x="614" y="607" font-size="9" fill="#f0f6fc" text-anchor="middle">CruzSegurancaModal.jsx</text>
+
+        <rect x="540" y="622" width="148" height="28" rx="3" fill="#161b22" stroke="#d2a8ff" stroke-width="1.2"/>
+        <rect x="540" y="622" width="58" height="11" rx="2" fill="#d2a8ff"/>
+        <text x="544" y="631" font-size="7" fill="#0d1117" font-weight="600">«component»</text>
+        <text x="614" y="643" font-size="9" fill="#f0f6fc" text-anchor="middle">DocVideoViewer.jsx</text>
+
+        <rect x="540" y="658" width="148" height="28" rx="3" fill="#161b22" stroke="#d2a8ff" stroke-width="1.2"/>
+        <rect x="540" y="658" width="58" height="11" rx="2" fill="#d2a8ff"/>
+        <text x="544" y="667" font-size="7" fill="#0d1117" font-weight="600">«component»</text>
+        <text x="614" y="679" font-size="9" fill="#f0f6fc" text-anchor="middle">BoxCard.jsx</text>
+
+        <!-- col B (right) -->
+        <rect x="700" y="514" width="130" height="28" rx="3" fill="#161b22" stroke="#d2a8ff" stroke-width="1.2"/>
+        <rect x="700" y="514" width="58" height="11" rx="2" fill="#d2a8ff"/>
+        <text x="704" y="523" font-size="7" fill="#0d1117" font-weight="600">«component»</text>
+        <text x="765" y="535" font-size="9" fill="#f0f6fc" text-anchor="middle">Footer.jsx</text>
+
+        <rect x="700" y="550" width="130" height="28" rx="3" fill="#161b22" stroke="#d2a8ff" stroke-width="1.2"/>
+        <rect x="700" y="550" width="58" height="11" rx="2" fill="#d2a8ff"/>
+        <text x="704" y="559" font-size="7" fill="#0d1117" font-weight="600">«component»</text>
+        <text x="765" y="571" font-size="9" fill="#f0f6fc" text-anchor="middle">Header.jsx</text>
+
+        <rect x="700" y="586" width="130" height="28" rx="3" fill="#161b22" stroke="#d2a8ff" stroke-width="1.2"/>
+        <rect x="700" y="586" width="58" height="11" rx="2" fill="#d2a8ff"/>
+        <text x="704" y="595" font-size="7" fill="#0d1117" font-weight="600">«component»</text>
+        <text x="765" y="607" font-size="9" fill="#f0f6fc" text-anchor="middle">SectionHeader.jsx</text>
+
+        <rect x="700" y="622" width="130" height="28" rx="3" fill="#161b22" stroke="#d2a8ff" stroke-width="1.2"/>
+        <rect x="700" y="622" width="58" height="11" rx="2" fill="#d2a8ff"/>
+        <text x="704" y="631" font-size="7" fill="#0d1117" font-weight="600">«component»</text>
+        <text x="765" y="643" font-size="9" fill="#f0f6fc" text-anchor="middle">ToastContainer.jsx</text>
+
+        <rect x="700" y="658" width="130" height="28" rx="3" fill="#161b22" stroke="#d2a8ff" stroke-width="1.2"/>
+        <rect x="700" y="658" width="58" height="11" rx="2" fill="#d2a8ff"/>
+        <text x="704" y="667" font-size="7" fill="#0d1117" font-weight="600">«component»</text>
+        <text x="765" y="679" font-size="9" fill="#f0f6fc" text-anchor="middle">VideoCarousel.jsx</text>
+
+        <!-- ══ DATA children ══ -->
+        <line x1="920" y1="476" x2="920" y2="514" stroke="#ffa657" stroke-width="1.3" marker-end="url(#ao2)"/>
+
+        <!-- data files -->
+        <rect x="854" y="514" width="130" height="26" rx="3" fill="#161b22" stroke="#ffa657" stroke-width="1.1"/>
+        <rect x="854" y="514" width="52" height="11" rx="2" fill="#ffa657"/>
+        <text x="858" y="523" font-size="7" fill="#0d1117" font-weight="600">«datafile»</text>
+        <text x="919" y="535" font-size="8.5" fill="#f0f6fc" text-anchor="middle">areasLinha1.js</text>
+
+        <rect x="854" y="546" width="130" height="26" rx="3" fill="#161b22" stroke="#ffa657" stroke-width="1.1"/>
+        <rect x="854" y="546" width="52" height="11" rx="2" fill="#ffa657"/>
+        <text x="858" y="555" font-size="7" fill="#0d1117" font-weight="600">«datafile»</text>
+        <text x="919" y="567" font-size="8.5" fill="#f0f6fc" text-anchor="middle">conteudosPD.js</text>
+
+        <rect x="854" y="578" width="130" height="26" rx="3" fill="#161b22" stroke="#ffa657" stroke-width="1.1"/>
+        <rect x="854" y="578" width="52" height="11" rx="2" fill="#ffa657"/>
+        <text x="858" y="587" font-size="7" fill="#0d1117" font-weight="600">«datafile»</text>
+        <text x="919" y="599" font-size="8.5" fill="#f0f6fc" text-anchor="middle">departamentos.js</text>
+
+        <rect x="854" y="610" width="130" height="26" rx="3" fill="#161b22" stroke="#ffa657" stroke-width="1.1"/>
+        <rect x="854" y="610" width="52" height="11" rx="2" fill="#ffa657"/>
+        <text x="858" y="619" font-size="7" fill="#0d1117" font-weight="600">«datafile»</text>
+        <text x="919" y="631" font-size="8.5" fill="#f0f6fc" text-anchor="middle">departamentosCruz.js</text>
+
+        <rect x="854" y="642" width="130" height="26" rx="3" fill="#161b22" stroke="#ffa657" stroke-width="1.1"/>
+        <rect x="854" y="642" width="52" height="11" rx="2" fill="#ffa657"/>
+        <text x="858" y="651" font-size="7" fill="#0d1117" font-weight="600">«datafile»</text>
+        <text x="919" y="663" font-size="8.5" fill="#f0f6fc" text-anchor="middle">docsSeguranca.js</text>
+
+        <rect x="854" y="674" width="130" height="26" rx="3" fill="#161b22" stroke="#ffa657" stroke-width="1.1"/>
+        <rect x="854" y="674" width="52" height="11" rx="2" fill="#ffa657"/>
+        <text x="858" y="683" font-size="7" fill="#0d1117" font-weight="600">«datafile»</text>
+        <text x="919" y="695" font-size="8.5" fill="#f0f6fc" text-anchor="middle">linhas.js</text>
+
+        <rect x="854" y="706" width="130" height="26" rx="3" fill="#161b22" stroke="#ffa657" stroke-width="1.1"/>
+        <rect x="854" y="706" width="52" height="11" rx="2" fill="#ffa657"/>
+        <text x="858" y="715" font-size="7" fill="#0d1117" font-weight="600">«datafile»</text>
+        <text x="919" y="727" font-size="8.5" fill="#f0f6fc" text-anchor="middle">navigation.js</text>
+
+        <rect x="854" y="738" width="130" height="26" rx="3" fill="#161b22" stroke="#ffa657" stroke-width="1.1"/>
+        <rect x="854" y="738" width="52" height="11" rx="2" fill="#ffa657"/>
+        <text x="858" y="747" font-size="7" fill="#0d1117" font-weight="600">«datafile»</text>
+        <text x="919" y="759" font-size="8.5" fill="#f0f6fc" text-anchor="middle">temasDDS.js</text>
+
+        <rect x="854" y="770" width="130" height="26" rx="3" fill="#161b22" stroke="#ffa657" stroke-width="1.1"/>
+        <rect x="854" y="770" width="52" height="11" rx="2" fill="#ffa657"/>
+        <text x="858" y="779" font-size="7" fill="#0d1117" font-weight="600">«datafile»</text>
+        <text x="919" y="791" font-size="8.5" fill="#f0f6fc" text-anchor="middle">brands.js</text>
+
+        <!-- ══ HOOKS children ══ -->
+        <line x1="1026" y1="476" x2="1026" y2="514" stroke="#3fb950" stroke-width="1.3" marker-end="url(#ag)"/>
+
+        <rect x="960" y="514" width="132" height="26" rx="3" fill="#161b22" stroke="#3fb950" stroke-width="1.1"/>
+        <rect x="960" y="514" width="48" height="11" rx="2" fill="#3fb950"/>
+        <text x="964" y="523" font-size="7" fill="#0d1117" font-weight="600">«hook»</text>
+        <text x="1026" y="535" font-size="8.5" fill="#f0f6fc" text-anchor="middle">useEscapeKey.js</text>
+
+        <rect x="960" y="546" width="132" height="26" rx="3" fill="#161b22" stroke="#3fb950" stroke-width="1.1"/>
+        <rect x="960" y="546" width="48" height="11" rx="2" fill="#3fb950"/>
+        <text x="964" y="555" font-size="7" fill="#0d1117" font-weight="600">«hook»</text>
+        <text x="1026" y="567" font-size="8.5" fill="#f0f6fc" text-anchor="middle">useFullscreen.js</text>
+
+        <rect x="960" y="578" width="132" height="26" rx="3" fill="#161b22" stroke="#3fb950" stroke-width="1.1"/>
+        <rect x="960" y="578" width="48" height="11" rx="2" fill="#3fb950"/>
+        <text x="964" y="587" font-size="7" fill="#0d1117" font-weight="600">«hook»</text>
+        <text x="1026" y="599" font-size="8.5" fill="#f0f6fc" text-anchor="middle">useLocalStorage.js</text>
+
+        <rect x="960" y="610" width="132" height="26" rx="3" fill="#161b22" stroke="#3fb950" stroke-width="1.1"/>
+        <rect x="960" y="610" width="48" height="11" rx="2" fill="#3fb950"/>
+        <text x="964" y="619" font-size="7" fill="#0d1117" font-weight="600">«hook»</text>
+        <text x="1026" y="631" font-size="8.5" fill="#f0f6fc" text-anchor="middle">useScrollReveal.js</text>
+
+        <rect x="960" y="642" width="132" height="26" rx="3" fill="#161b22" stroke="#3fb950" stroke-width="1.1"/>
+        <rect x="960" y="642" width="48" height="11" rx="2" fill="#3fb950"/>
+        <text x="964" y="651" font-size="7" fill="#0d1117" font-weight="600">«hook»</text>
+        <text x="1026" y="663" font-size="8.5" fill="#f0f6fc" text-anchor="middle">useToast.js</text>
+
+        <rect x="960" y="674" width="132" height="26" rx="3" fill="#161b22" stroke="#3fb950" stroke-width="1.1"/>
+        <rect x="960" y="674" width="48" height="11" rx="2" fill="#3fb950"/>
+        <text x="964" y="683" font-size="7" fill="#0d1117" font-weight="600">«hook»</text>
+        <text x="1026" y="695" font-size="8.5" fill="#f0f6fc" text-anchor="middle">useVideoSound.js</text>
+
+        <!-- ══ PAGES hierarchy ══ -->
+        <line x1="1256" y1="476" x2="1256" y2="514" stroke="#ff7b72" stroke-width="1.5" marker-end="url(#as)"/>
+
+        <!-- Home.jsx -->
+        <rect x="1136" y="514" width="140" height="36" rx="3" fill="#161b22" stroke="#ffa657" stroke-width="1.5"/>
+        <rect x="1136" y="514" width="60" height="13" rx="2" fill="#ffa657"/>
+        <text x="1140" y="524" font-size="7.5" fill="#0d1117" font-weight="600">«component»</text>
+        <text x="1206" y="540" font-size="9.5" fill="#f0f6fc" text-anchor="middle">Home.jsx</text>
+        <text x="1206" y="546" font-size="7.5" fill="#8b949e" text-anchor="middle">/ (raiz)</text>
+
+        <!-- DialogoDiarioSeguranca.jsx -->
+        <rect x="1290" y="514" width="146" height="36" rx="3" fill="#161b22" stroke="#ffa657" stroke-width="1.5"/>
+        <rect x="1290" y="514" width="60" height="13" rx="2" fill="#ffa657"/>
+        <text x="1294" y="524" font-size="7.5" fill="#0d1117" font-weight="600">«component»</text>
+        <text x="1363" y="537" font-size="8.5" fill="#f0f6fc" text-anchor="middle">DialogoDiario</text>
+        <text x="1363" y="548" font-size="8.5" fill="#f0f6fc" text-anchor="middle">Seguranca.jsx</text>
+
+        <!-- ProcedimentosSeguranca.jsx -->
+        <rect x="1136" y="562" width="146" height="36" rx="3" fill="#161b22" stroke="#ffa657" stroke-width="1.5"/>
+        <rect x="1136" y="562" width="60" height="13" rx="2" fill="#ffa657"/>
+        <text x="1140" y="572" font-size="7.5" fill="#0d1117" font-weight="600">«component»</text>
+        <text x="1209" y="585" font-size="8.5" fill="#f0f6fc" text-anchor="middle">Procedimentos</text>
+        <text x="1209" y="595" font-size="8.5" fill="#f0f6fc" text-anchor="middle">Seguranca.jsx</text>
+
+        <!-- departamentos/ pkg -->
+        <rect x="1136" y="614" width="146" height="38" rx="4" fill="#161b22" stroke="#ff7b72" stroke-width="2"/>
+        <rect x="1136" y="614" width="58" height="14" rx="2" fill="#ff7b72"/>
+        <text x="1140" y="625" font-size="7.5" fill="#0d1117" font-weight="600">«package»</text>
+        <text x="1209" y="640" font-size="10" fill="#f0f6fc" font-weight="600" text-anchor="middle">departamentos /</text>
+        <text x="1209" y="650" font-size="8" fill="#8b949e" text-anchor="middle">rota: /departamentos</text>
+        <line x1="1209" y1="652" x2="1209" y2="674" stroke="#ff7b72" stroke-width="1.3" marker-end="url(#as)"/>
+
+        <!-- Departamentos.jsx -->
+        <rect x="1136" y="674" width="146" height="30" rx="3" fill="#161b22" stroke="#ffa657" stroke-width="1.4"/>
+        <rect x="1136" y="674" width="60" height="12" rx="2" fill="#ffa657"/>
+        <text x="1140" y="683" font-size="7" fill="#0d1117" font-weight="600">«component»</text>
+        <text x="1209" y="697" font-size="9" fill="#f0f6fc" text-anchor="middle">Departamentos.jsx</text>
+        <line x1="1209" y1="704" x2="1209" y2="724" stroke="#ff7b72" stroke-width="1.3" marker-end="url(#as)"/>
+
+        <!-- linha-sp2/ pkg -->
+        <rect x="1136" y="724" width="146" height="38" rx="4" fill="#161b22" stroke="#ff7b72" stroke-width="2"/>
+        <rect x="1136" y="724" width="58" height="14" rx="2" fill="#ff7b72"/>
+        <text x="1140" y="735" font-size="7.5" fill="#0d1117" font-weight="600">«package»</text>
+        <text x="1209" y="750" font-size="10" fill="#f0f6fc" font-weight="600" text-anchor="middle">linha-sp2 /</text>
+        <text x="1209" y="760" font-size="8" fill="#8b949e" text-anchor="middle">rota: /…/linha-sp2</text>
+        <line x1="1209" y1="762" x2="1209" y2="782" stroke="#ff7b72" stroke-width="1.3" marker-end="url(#as)"/>
+
+        <!-- LinhaSP2.jsx -->
+        <rect x="1136" y="782" width="146" height="30" rx="3" fill="#161b22" stroke="#ffa657" stroke-width="1.4"/>
+        <rect x="1136" y="782" width="60" height="12" rx="2" fill="#ffa657"/>
+        <text x="1140" y="791" font-size="7" fill="#0d1117" font-weight="600">«component»</text>
+        <text x="1209" y="805" font-size="9" fill="#f0f6fc" text-anchor="middle">LinhaSP2.jsx</text>
+        <line x1="1209" y1="812" x2="1209" y2="832" stroke="#ff7b72" stroke-width="1.3" marker-end="url(#as)"/>
+
+        <!-- linha1/ pkg -->
+        <rect x="1136" y="832" width="146" height="38" rx="4" fill="#161b22" stroke="#ff7b72" stroke-width="2"/>
+        <rect x="1136" y="832" width="58" height="14" rx="2" fill="#ff7b72"/>
+        <text x="1140" y="843" font-size="7.5" fill="#0d1117" font-weight="600">«package»</text>
+        <text x="1209" y="858" font-size="10" fill="#f0f6fc" font-weight="600" text-anchor="middle">linha1 /</text>
+        <text x="1209" y="868" font-size="8" fill="#8b949e" text-anchor="middle">rota: /…/linha1</text>
+        <line x1="1209" y1="870" x2="1209" y2="890" stroke="#ff7b72" stroke-width="1.3" marker-end="url(#as)"/>
+
+        <!-- Linha1.jsx -->
+        <rect x="1136" y="890" width="146" height="30" rx="3" fill="#161b22" stroke="#ffa657" stroke-width="1.4"/>
+        <rect x="1136" y="890" width="60" height="12" rx="2" fill="#ffa657"/>
+        <text x="1140" y="899" font-size="7" fill="#0d1117" font-weight="600">«component»</text>
+        <text x="1209" y="913" font-size="9" fill="#f0f6fc" text-anchor="middle">Linha1.jsx</text>
+        <line x1="1209" y1="920" x2="1209" y2="940" stroke="#ff7b72" stroke-width="1.3" marker-end="url(#as)"/>
+
+        <!-- pc/ pkg -->
+        <rect x="1136" y="940" width="146" height="38" rx="4" fill="#161b22" stroke="#ff7b72" stroke-width="2"/>
+        <rect x="1136" y="940" width="58" height="14" rx="2" fill="#ff7b72"/>
+        <text x="1140" y="951" font-size="7.5" fill="#0d1117" font-weight="600">«package»</text>
+        <text x="1209" y="966" font-size="10" fill="#f0f6fc" font-weight="600" text-anchor="middle">pc /</text>
+        <text x="1209" y="976" font-size="8" fill="#8b949e" text-anchor="middle">rota: /…/pc</text>
+        <line x1="1209" y1="978" x2="1209" y2="998" stroke="#ff7b72" stroke-width="1.3" marker-end="url(#as)"/>
+
+        <!-- PC.jsx -->
+        <rect x="1136" y="998" width="146" height="30" rx="3" fill="#161b22" stroke="#ffa657" stroke-width="1.8"/>
+        <rect x="1136" y="998" width="60" height="12" rx="2" fill="#ffa657"/>
+        <text x="1140" y="1007" font-size="7" fill="#0d1117" font-weight="600">«component»</text>
+        <text x="1209" y="1021" font-size="9.5" fill="#f0f6fc" font-weight="600" text-anchor="middle">PC.jsx</text>
+
+        <!-- ══ STYLES children ══ -->
+        <line x1="1471" y1="476" x2="1471" y2="514" stroke="#79c0ff" stroke-width="1.3" marker-end="url(#as)"/>
+
+        <rect x="1390" y="514" width="162" height="26" rx="3" fill="#161b22" stroke="#79c0ff" stroke-width="1.1"/>
+        <rect x="1390" y="514" width="44" height="11" rx="2" fill="#79c0ff"/>
+        <text x="1394" y="523" font-size="7" fill="#0d1117" font-weight="600">«css»</text>
+        <text x="1471" y="535" font-size="8.5" fill="#f0f6fc" text-anchor="middle">app.css · base.css</text>
+
+        <rect x="1390" y="546" width="162" height="26" rx="3" fill="#161b22" stroke="#79c0ff" stroke-width="1.1"/>
+        <rect x="1394" y="546" width="44" height="11" rx="2" fill="#79c0ff"/>
+        <text x="1394" y="555" font-size="7" fill="#0d1117" font-weight="600">«css»</text>
+        <text x="1471" y="567" font-size="8.5" fill="#f0f6fc" text-anchor="middle">Departamentos.css</text>
+
+        <rect x="1390" y="578" width="162" height="26" rx="3" fill="#161b22" stroke="#79c0ff" stroke-width="1.1"/>
+        <rect x="1394" y="578" width="44" height="11" rx="2" fill="#79c0ff"/>
+        <text x="1394" y="587" font-size="7" fill="#0d1117" font-weight="600">«css»</text>
+        <text x="1471" y="599" font-size="8.5" fill="#f0f6fc" text-anchor="middle">Styledds.css</text>
+
+        <rect x="1390" y="610" width="162" height="26" rx="3" fill="#161b22" stroke="#79c0ff" stroke-width="1.1"/>
+        <rect x="1394" y="610" width="44" height="11" rx="2" fill="#79c0ff"/>
+        <text x="1394" y="619" font-size="7" fill="#0d1117" font-weight="600">«css»</text>
+        <text x="1471" y="631" font-size="8.5" fill="#f0f6fc" text-anchor="middle">styleIlhas.css</text>
+
+        <rect x="1390" y="642" width="162" height="26" rx="3" fill="#161b22" stroke="#79c0ff" stroke-width="1.1"/>
+        <rect x="1394" y="642" width="44" height="11" rx="2" fill="#79c0ff"/>
+        <text x="1394" y="651" font-size="7" fill="#0d1117" font-weight="600">«css»</text>
+        <text x="1471" y="663" font-size="8.5" fill="#f0f6fc" text-anchor="middle">StyleLinhas.css</text>
+
+        <rect x="1390" y="674" width="162" height="26" rx="3" fill="#161b22" stroke="#79c0ff" stroke-width="1.1"/>
+        <rect x="1394" y="674" width="44" height="11" rx="2" fill="#79c0ff"/>
+        <text x="1394" y="683" font-size="7" fill="#0d1117" font-weight="600">«css»</text>
+        <text x="1471" y="695" font-size="8.5" fill="#f0f6fc" text-anchor="middle">Styleps.css</text>
+
+        <rect x="1390" y="706" width="162" height="26" rx="3" fill="#161b22" stroke="#79c0ff" stroke-width="1.1"/>
+        <rect x="1394" y="706" width="44" height="11" rx="2" fill="#79c0ff"/>
+        <text x="1394" y="715" font-size="7" fill="#0d1117" font-weight="600">«css»</text>
+        <text x="1471" y="727" font-size="8.5" fill="#f0f6fc" text-anchor="middle">StyleSP2.css</text>
+
+        <rect x="1390" y="738" width="162" height="26" rx="3" fill="#161b22" stroke="#79c0ff" stroke-width="1.1"/>
+        <rect x="1394" y="738" width="44" height="11" rx="2" fill="#79c0ff"/>
+        <text x="1394" y="747" font-size="7" fill="#0d1117" font-weight="600">«css»</text>
+        <text x="1471" y="759" font-size="8.5" fill="#f0f6fc" text-anchor="middle">style.css</text>
+
+        <!-- ══ UTILS child ══ -->
+        <line x1="1620" y1="476" x2="1620" y2="514" stroke="#e3b341" stroke-width="1.3" marker-end="url(#ae3)"/>
+        <rect x="1556" y="514" width="130" height="30" rx="3" fill="#161b22" stroke="#e3b341" stroke-width="1.2"/>
+        <rect x="1556" y="514" width="52" height="12" rx="2" fill="#e3b341"/>
+        <text x="1560" y="524" font-size="7" fill="#0d1117" font-weight="600">«utility»</text>
+        <text x="1621" y="538" font-size="9" fill="#f0f6fc" text-anchor="middle">exportarExcel.js</text>
+        <text x="1621" y="548" font-size="7.5" fill="#8b949e" text-anchor="middle">SheetJS + Blob API</text>
+
+        <!-- ══ DEPENDENCY ARROWS («use») ══ -->
+        <!-- PC.jsx → useLocalStorage -->
+        <line x1="1136" y1="1013" x2="1095" y2="1013" stroke="#8b949e" stroke-width="1" stroke-dasharray="5,3"/>
+        <line x1="1095" y1="1013" x2="1095" y2="592" stroke="#8b949e" stroke-width="1" stroke-dasharray="5,3"/>
+        <line x1="1095" y1="592" x2="1092" y2="592" stroke="#8b949e" stroke-width="1" stroke-dasharray="5,3" marker-end="url(#ao)"/>
+        <text x="1060" y="800" font-size="7.5" fill="#8b949e" text-anchor="middle" font-style="italic">«use»</text>
+
+        <!-- PC.jsx → useFullscreen -->
+        <line x1="1136" y1="1008" x2="1110" y2="1008" stroke="#8b949e" stroke-width="1" stroke-dasharray="5,3"/>
+        <line x1="1110" y1="1008" x2="1110" y2="560" stroke="#8b949e" stroke-width="1" stroke-dasharray="5,3"/>
+        <line x1="1110" y1="560" x2="1092" y2="560" stroke="#8b949e" stroke-width="1" stroke-dasharray="5,3" marker-end="url(#ao)"/>
+
+        <!-- PC.jsx → conteudosPD.js (data) -->
+        <line x1="1136" y1="1020" x2="870" y2="1020" stroke="#8b949e" stroke-width="1" stroke-dasharray="5,3"/>
+        <line x1="870"  y1="1020" x2="870" y2="796" stroke="#8b949e" stroke-width="1" stroke-dasharray="5,3" marker-end="url(#ao)"/>
+        <text x="1000" y="1016" font-size="7.5" fill="#8b949e" text-anchor="middle" font-style="italic">«use» conteudosPD</text>
+
+        <!-- PC.jsx → exportarExcel.js -->
+        <line x1="1282" y1="1028" x2="1282" y2="1070" stroke="#8b949e" stroke-width="1" stroke-dasharray="5,3"/>
+        <line x1="1282" y1="1070" x2="1621" y2="1070" stroke="#8b949e" stroke-width="1" stroke-dasharray="5,3"/>
+        <line x1="1621" y1="1070" x2="1621" y2="544" stroke="#8b949e" stroke-width="1" stroke-dasharray="5,3" marker-end="url(#ao)"/>
+        <text x="1460" y="1064" font-size="7.5" fill="#8b949e" text-anchor="middle" font-style="italic">«use» exportarExcel</text>
+
+        <!-- PC.jsx → AssinaturaModal + ConfirmModal -->
+        <line x1="1136" y1="1003" x2="800" y2="1003" stroke="#8b949e" stroke-width="1" stroke-dasharray="5,3"/>
+        <line x1="800"  y1="1003" x2="800" y2="528" stroke="#8b949e" stroke-width="1" stroke-dasharray="5,3"/>
+        <line x1="800"  y1="528"  x2="688" y2="528" stroke="#8b949e" stroke-width="1" stroke-dasharray="5,3" marker-end="url(#ao)"/>
+        <text x="740" y="780" font-size="7.5" fill="#8b949e" text-anchor="middle" font-style="italic">«use»</text>
+
+        <!-- ══ FOOTER NOTE ══ -->
+        <rect x="20" y="1860" width="1660" height="28" rx="4" fill="#161b22" stroke="#21262d" stroke-width="1"/>
+        <text x="850" y="1879" font-size="10" fill="#8b949e" text-anchor="middle">
+            Diagrama de Componentes UML 2.5 · whirlpoolPex · Sistema On The Job · Whirlpool · Fábrica II — Joinville/SC · gerado em 2026
+        </text>
+    </svg>
+</div>
+
+<script>
+    const svg = document.getElementById('uml');
+    let panning=false, sx, sy;
+    svg.addEventListener('wheel', e => {
+        e.preventDefault();
+        const vb = svg.viewBox.baseVal, s = e.deltaY>0?1.1:0.9;
+        const cx=vb.x+vb.width/2, cy=vb.y+vb.height/2;
+        vb.width=Math.min(3400,Math.max(600,vb.width*s));
+        vb.height=Math.min(3800,Math.max(600,vb.height*s));
+        vb.x=cx-vb.width/2; vb.y=cy-vb.height/2;
+    });
+    svg.addEventListener('mousedown', e=>{panning=true;sx=e.clientX;sy=e.clientY;});
+    window.addEventListener('mouseup', ()=>panning=false);
+    window.addEventListener('mousemove', e=>{
+        if(!panning)return;
+        const vb=svg.viewBox.baseVal;
+        vb.x-=(e.clientX-sx)*(vb.width/svg.clientWidth);
+        vb.y-=(e.clientY-sy)*(vb.height/svg.clientHeight);
+        sx=e.clientX;sy=e.clientY;
+    });
+</script>
+</body>
+</html>

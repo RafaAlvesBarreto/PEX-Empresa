@@ -112,20 +112,14 @@ nav ul li a.active-nav {
   width: 32px !important; height: 32px !important; font-size: 14px !important;
 }
 
-/* ── Carrossel lateral (StyleLinhas.css) em React ── */
-/* O video-box-container no Linha1 usa position:sticky via CSS —
-   o React não interfere pois usamos as mesmas classes do HTML original */
-
 /* ── .box animação: garante que delay CSS funcione ── */
 .box {
   transition-delay: var(--box-delay, 0ms);
 }
 
-/* ── tabelaPD: base.css seta display:none — sobrescrevemos com [data-visible] ── */
 .tabelaPD { display: none !important; }
 .tabelaPD.visible { display: table !important; }
 
-/* ── section-header (compartilhado Departamentos, StyleLinhas, StyleSP2) ── */
 .section-header {
   flex: 0 0 auto;
   margin-bottom: 14px;
