@@ -42,7 +42,7 @@ export default function Home() {
           <div className="boxes-col" ref={boxesColRef}>
 
             <div className="box col-left">
-              <img src="https://picsum.photos/800/400" alt="Construindo o futuro" />
+              <img src="https://images.unsplash.com/photo-[ID]?w=800&h=400&fit=crop" alt="Construindo o futuro" />
               <h2>Construindo o Futuro</h2>
               <p>
                 Aqui na Whirlpool, acreditamos que o conhecimento é a nossa matéria-prima mais valiosa.
@@ -75,7 +75,7 @@ export default function Home() {
             </div>
 
             <div className="box col-left">
-              <img src="https://picsum.photos/800/401" alt="Segurança e Qualidade" />
+              <img src="https://images.unsplash.com/photo-[ID]?w=800&h=400&fit=crop" alt="Segurança e Qualidade" />
               <h2>Segurança e Qualidade: Dois Lados da Mesma Moeda</h2>
               <p>
                 Na nossa indústria, a precisão vai além da linha de montagem. Ela está no olhar atento
@@ -86,10 +86,10 @@ export default function Home() {
             </div>
 
             <div className="box col-right">
-              <img src="https://picsum.photos/800/402" alt="Inovação Contínua" />
+              <img src="https://images.unsplash.com/photo-[ID]?w=800&h=400&fit=crop" alt="Inovação Contínua" />
               <h2>Inovação Contínua</h2>
               <p>
-                Aqui na Whirlpool, acreditamos que o conhecimento é a nossa matéria-prima mais valiosa.
+                Aqui na empresa, acreditamos que o conhecimento é a nossa matéria-prima mais valiosa.
                 Investir na aprendizagem contínua não é apenas desenvolver habilidades — é fortalecer o DNA
                 da nossa empresa. Quando cada colaborador aprende, a companhia inteira evolui, garantindo
                 processos mais seguros e uma entrega de excelência ao mundo.
