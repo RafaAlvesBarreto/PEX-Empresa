@@ -85,7 +85,7 @@ export default function AssinaturaModal({ open, onClose, onConfirm, docLabel, va
             <input
               id="as-turno" type="text" value={turno}
               onChange={e => setTurno(e.target.value)}
-              placeholder="Ex.: A, B ou C"
+              placeholder="Ex.: 4, 5 ou 6"
             />
 
             <label htmlFor="as-tipo">Tipo de Treinamento</label>
